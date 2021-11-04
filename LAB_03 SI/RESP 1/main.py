@@ -13,5 +13,3 @@ db.execute('CREATE TABLE IF NOT EXISTS rutas(npic,id,lat,lon,velo,angu,fecha,hor
 
 cons = db.execute('SELECT lat,lon FROM rutas WHERE id = 8 ORDER BY fecha asc LIMIT 10')
 
-data = dict(cons)
-print(data)
