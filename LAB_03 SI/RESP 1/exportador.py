@@ -1,9 +1,10 @@
 import sqlite3 as sq
 import requests
+import json
 
 url = "http://127.0.0.1:5000/im_data"
 
-gps = {'data':['lan', 'lon']}
+gps = {'data':['lat', 'lon']}
 
 def dict_factory(cursor, row):
     d = gps
@@ -18,7 +19,7 @@ def devolverdiccionario():
 
     cursorMemoria.execute("CREATE TABLE IF NOT EXISTS rutas(npic,id,lat,lon,velo,angu,fecha,hora,onoff,nsat)")
 
-    cursorMemoria.execute("SELECT lat,lon FROM rutas WHERE id = 10 ORDER BY fecha asc LIMIT 10")
+    cursorMemoria.execute("SELECT lat,lon FROM rutas WHERE id = 5  ORDER BY fecha asc")
     
     resultadoConsulta = cursorMemoria.fetchall()
 
@@ -26,12 +27,16 @@ def devolverdiccionario():
 
     return resultadoConsulta
 
-for abrir in gps["data"]:
+""" for abrir in gps["data"]:
     files = {"data" : (open(abrir, "r"))}
-    Res = requests.post(url, files = files)
+    Res = requests.post(url, files = files) """
 
 funcion = devolverdiccionario()
 print(funcion)
+
+with open('diccionario.json', 'w') as f:
+    json.dump(gps, f, indent=4, sort_keys=True)
+
 
 
 
